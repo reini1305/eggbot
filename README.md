@@ -15,6 +15,6 @@ python send_to_arduino.py -f <gcode-file> -p <port> -r <resolution>
 where `resolution` is the resolution of the curve interpolation. You can lower this value down to `0.5` for increased resolution on curves, `2` seems to be a good compromise between quality and speed.
 
 ## Finished Project
-![Eggbot complete](https://github.com/reini1305/eggbot/raw/master/images/complete.jpg)
+![Eggbot complete](https://github.com/reini1305/eggbot/raw/master/images/result.jpg)
 ![Electronics](https://github.com/reini1305/eggbot/raw/master/images/electronics.jpg)
 ![Frame](https://github.com/reini1305/eggbot/raw/master/images/frame.jpg)
