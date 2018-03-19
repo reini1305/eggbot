@@ -16,7 +16,7 @@ from progressbar import ETA, Bar, RotatingMarker, ProgressBar, Percentage
 
 def main(argv):
     #default values
-    serialport = '/dev/tty.HC-06-DevB'
+    serialport = '/dev/cu.usbmodemFD131'
     resolution = 2
     try:
         opts, args = getopt.getopt(argv, "p:f:r", ["port=", "file=", "res="])
@@ -106,7 +106,7 @@ def main(argv):
     #print max_point
     if any (new_point>np.array([[3200],[1000]])):
         print 'Image too large! 3200 x 1000 is the maximum!'
-    ser = serial.Serial(port=serialport,baudrate=9600,timeout=10)
+    ser = serial.Serial(port=serialport,baudrate=115200,timeout=10)
     widgets = [Percentage(), ' ', Bar(marker=RotatingMarker()),' ', ETA()]
     pbar = ProgressBar(widgets=widgets).start()
     for line in pbar(to_send):
