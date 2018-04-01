@@ -1,14 +1,14 @@
 #include <Adafruit_MotorShield.h>
-#include <Servo.h>
+#include <VarSpeedServo.h>
 // Create the motor shield object with the default I2C address
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_StepperMotor *motor1 = AFMS.getStepper(200, 1);
 Adafruit_StepperMotor *motor2 = AFMS.getStepper(200, 2);
 
 #define COMMAND_SIZE 128
-#define PEN_UP 50
-#define PEN_DOWN 120
-Servo servo;
+#define PEN_UP 55
+#define PEN_DOWN 70
+VarSpeedServo servo;
 
 char aWord[COMMAND_SIZE];
 String command;
@@ -23,7 +23,7 @@ int x_new, y_new, z_new;
 int x_curr, y_curr, z_curr;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(2000000);
 
   x_curr = 0;
   y_curr = 0;
@@ -78,24 +78,25 @@ void loop()
         moveTo(x_new, y_new);
         Serial.println("OK");
       }
-      if ((command_part[0] == "G00") || (command_part[0] == "g00") || (command_part[0] == "G0")) {
+      else if ((command_part[0] == "G00") || (command_part[0] == "g00") || (command_part[0] == "G0")) {
         extract_parameter();
         if(z_new != z_curr) {
           if(z_new>0)
-            servo.write(PEN_UP);
+            servo.write(PEN_UP,50,true);
           else
-            servo.write(PEN_DOWN);
-          delay(10);  // to give the pen some time to move
+            servo.write(PEN_DOWN,50,true);
         }
         z_curr = z_new;
         Serial.println("OK");
       }
-      if (command_part[0] == "M05") {
+      else if (command_part[0] == "M05") {
         motor1->release();
         motor2->release();
         servo.write(PEN_UP);
         Serial.println("OK");
       }
+      else
+        Serial.println("NOK");
       clear_process_string();
     }
 
